@@ -207,7 +207,15 @@ dependencies {
     androidTestImplementation androidTestRunnerDep
     androidTestImplementation androidTestRulesDep
     androidTestImplementation androidJunitDep
+
+    api coilDep
+    api coilSvg
+
+
+    implementation zXingCoreDep
+    implementation zXingEmbeddedDep
 }
+
 
 task printVersion {
     doLast {

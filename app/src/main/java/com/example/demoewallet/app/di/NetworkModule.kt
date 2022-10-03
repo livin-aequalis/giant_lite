@@ -1,7 +1,6 @@
 package com.example.demoewallet.app.di
 
 import android.content.Context
-import com.example.demoewallet.app.network.AndroidLogger
 import com.example.demoewallet.app.network.AppLinksProvider
 import com.example.demoewallet.app.network.NetworkApiCreator
 import com.example.demowallet.app.BuildConfig
@@ -10,6 +9,7 @@ import com.neovisionaries.ws.client.WebSocketFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import jp.co.soramitsu.fearless_utils.wsrpc.SocketService
 import jp.co.soramitsu.fearless_utils.wsrpc.logging.Logger
@@ -46,7 +46,7 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        context: Context
+       @ApplicationContext context: Context
     ): OkHttpClient {
         val builder = OkHttpClient.Builder()
             .connectTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
@@ -62,9 +62,7 @@ class NetworkModule {
         return builder.build()
     }
 
-    @Provides
-    @Singleton
-    fun provideLogger(): Logger = AndroidLogger()
+
 
     @Provides
     @Singleton
@@ -73,12 +71,6 @@ class NetworkModule {
     ): NetworkApiCreator {
         return NetworkApiCreator(okHttpClient, "https://placeholder.com")
     }
-
-    /*@Provides
-    @Singleton
-    fun httpExceptionHandler(
-        resourceManager: ResourceManager
-    ): HttpExceptionHandler = HttpExceptionHandler(resourceManager)*/
 
     @Provides
     @Singleton
@@ -101,15 +93,7 @@ class NetworkModule {
         requestExecutor: RequestExecutor
     ): SocketService = SocketService(mapper, logger, socketFactory, reconnector, requestExecutor)
 
-    /*@Provides
-    @Singleton
-    fun provideSocketSingleRequestExecutor(
-        mapper: Gson,
-        logger: Logger,
-        socketFactory: WebSocketFactory,
-        resourceManager: ResourceManager
-    ) = SocketSingleRequestExecutor(mapper, logger, socketFactory, resourceManager)
-*/
+
     @Provides
     @Singleton
     fun provideJsonMapper() = Gson()

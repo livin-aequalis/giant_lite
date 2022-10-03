@@ -9,6 +9,7 @@ import com.example.demoewallet.app.mappers.mapCryptoTypeToEncryption
 import com.example.demoewallet.app.model.Chain
 import com.example.demoewallet.app.model.MetaAccount
 import com.example.demoewallet.app.model.address
+import com.example.demoewallet.app.network.CoingeckoApiImpl
 import com.example.demoewallet.app.utils.Resource
 import com.example.demoewallet.app.utils.deriveSeed32
 import com.example.demoewallet.app.utils.nullIfEmpty
@@ -23,11 +24,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.math.BigDecimal
 import javax.inject.Inject
 
 @HiltViewModel
 class TempViewModel
-@Inject constructor() : ViewModel() {
+@Inject constructor(
+    private val coingeckoApiImpl: CoingeckoApiImpl
+) : ViewModel() {
 
     val TAG = javaClass.name
     private val _mnemonicWords = MutableStateFlow<List<String>>(emptyList())
@@ -88,4 +92,14 @@ class TempViewModel
     }
 
 
+    private val _coinApi = MutableStateFlow<Resource<Map<String, Map<String, BigDecimal>>>>(Resource.Empty())
+    val coinApi = _coinApi.asStateFlow()
+    
+    fun getFiatSymbol(){
+        viewModelScope.launch {
+          val data=  coingeckoApiImpl.getAssetPriceCoingecko("","")
+            _coinApi.value = Resource.Success(data)
+            Log.d(TAG, "getFiatSymbol: $data")
+        }
+    }
 }

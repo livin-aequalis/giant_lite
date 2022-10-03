@@ -122,6 +122,15 @@ fun GetMnemonicWordsButton(
             }
         }
 
+        Spacer(modifier = Modifier.height(20.dp))
+
+        viewModel.getFiatSymbol()
+
+        Text(
+            text = "Private Key: }",
+            color = Color.Black
+        )
+
     }
 }
 
