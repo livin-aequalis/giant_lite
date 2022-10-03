@@ -1,0 +1,216 @@
+import com.github.triplet.gradle.androidpublisher.ReleaseStatus
+
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'com.google.firebase.appdistribution'
+apply plugin: "com.github.triplet.play"
+apply from: "../scripts/versions.gradle"
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    defaultConfig {
+        applicationId "com.example.demowallet.app"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode computeVersionCode()
+        versionName computeVersionName()
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "APP_VERSION_NAME", "\"${rootProject.versionName}\""
+
+        buildConfigField "String", "FIAT_CONFIG_URL", "\"https://raw.githubusercontent.com/soramitsu/fearless-utils/android/2.0.8/fiat/fiats.json\""
+        buildConfigField "String", "APP_CONFIG_URL", "\"https://raw.githubusercontent.com/soramitsu/fearless-utils/android/2.0.8/android_app_configuration.json\""
+
+        buildConfigField "String", "WEBSITE_URL", "\"https://fearlesswallet.io\""
+        buildConfigField "String", "TWITTER_URL", "\"https://twitter.com/fearlesswallet\""
+        buildConfigField "String", "YOUTUBE_URL", "\"https://youtube.com/fearlesswallet\""
+        buildConfigField "String", "INSTAGRAM_URL", "\"https://instagram.com/fearless_wallet\""
+        buildConfigField "String", "MEDIUM_URL", "\"https://medium.com/fearlesswallet\""
+        buildConfigField "String", "PRIVACY_URL", "\"https://fearlesswallet.io/privacy\""
+        buildConfigField "String", "TERMS_URL", "\"https://fearlesswallet.io/terms\""
+        buildConfigField "String", "GITHUB_URL", "\"https://github.com/soramitsu/fearless-Android\""
+        buildConfigField "String", "WIKI_URL", "\"https://wiki.fearlesswallet.io\""
+        buildConfigField "String", "WIKI_CROWDLOANS_URL", "\"https://wiki.fearlesswallet.io/crowdloans\""
+        buildConfigField "String", "TELEGRAM_URL", "\"https://t.me/fearlesswallet\""
+        buildConfigField "String", "ANNOUNCEMENT_URL", "\"https://t.me/fearless_announcements\""
+        buildConfigField "String", "SUPPORT_URL", "\"https://t.me/fearlesshappiness\""
+        buildConfigField "String", "EMAIL", "\"fearless@soramitsu.co.jp\""
+
+        buildConfigField "String", "TWITTER_ACCOUNT_TEMPLATE", "\"https://twitter.com/%s\""
+
+        buildConfigField "String", "PAYOUTS_LEARN_MORE", "\"https://wiki.polkadot.network/docs/en/learn-simple-payouts\""
+
+        buildConfigField "String", "SET_CONTROLLER_LEARN_MORE", "\"https://wiki.polkadot.network/docs/en/maintain-guides-how-to-nominate-polkadot#setting-up-stash-and-controller-keys\""
+        buildConfigField "String", "MOONBEAM_STAKING_LEARN_MORE", "\"https://docs.moonbeam.network/learn/features/staking/#reward-distribution(\""
+    }
+    signingConfigs {
+        ci {
+            storeFile file(System.env.CI_KEYSTORE_PATH ?: "stub")
+            storePassword System.env.CI_KEYSTORE_PASS ?: ""
+            keyAlias System.env.CI_KEYSTORE_KEY_ALIAS ?: ""
+            keyPassword System.env.CI_KEYSTORE_KEY_PASS ?: ""
+        }
+    }
+    buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-debug'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.ci
+        }
+        staging {
+            initWith debug
+            matchingFallbacks = ['debug']
+            versionNameSuffix '-staging'
+            applicationIdSuffix '.staging'
+            //Init firebase
+            def localReleaseNotes = releaseNotes()
+            def localFirebaseGroup = firebaseGroup()
+            firebaseAppDistribution {
+                releaseNotes = localReleaseNotes
+                groups = localFirebaseGroup
+            }
+        }
+        develop {
+            signingConfig signingConfigs.ci
+            matchingFallbacks = ['debug']
+            versionNameSuffix '-develop'
+            applicationIdSuffix '.dev'
+            //Init firebase
+            def localReleaseNotes = releaseNotes()
+            def localFirebaseGroup = firebaseGroup()
+            firebaseAppDistribution {
+                releaseNotes = localReleaseNotes
+                groups = localFirebaseGroup
+            }
+        }
+        pr {
+            signingConfig signingConfigs.ci
+            matchingFallbacks = ['debug']
+            versionNameSuffix '-pr'
+            applicationIdSuffix '.dev'
+            //Init firebase
+            def localReleaseNotes = releaseNotes()
+            def localFirebaseGroup = firebaseGroup()
+            firebaseAppDistribution {
+                releaseNotes = localReleaseNotes
+                groups = localFirebaseGroup
+            }
+        }
+    }
+
+    buildFeatures {
+        compose true
+        viewBinding = true
+    }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    kotlinOptions {
+        freeCompilerArgs = ["-Xallow-result-return-type"]
+
+        jvmTarget = '1.8'
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion composeCompilerVersion
+    }
+    namespace 'com.example.demowallet.app'
+}
+
+play {
+    serviceAccountCredentials = file(System.env.CI_PLAY_KEY ?: "../key/fake.json")
+    track = "production"
+    releaseStatus = ReleaseStatus.DRAFT
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.google.android.material:material:1.4.0'
+
+    implementation kotlinDep
+
+    implementation androidDep
+    implementation constraintDep
+
+    implementation zXingEmbeddedDep
+
+    implementation navigationFragmentDep
+    implementation navigationUiDep
+
+    implementation roomDep
+
+    implementation fearlessLibDep
+
+    implementation daggerDep
+    kapt daggerKapt
+
+    implementation lifecycleProcessDep
+    kapt lifecycleKapt
+
+    implementation lifeCycleKtxDep
+
+    implementation retrofitDep
+    implementation gsonConvertedDep
+    implementation interceptorVersion
+    implementation scalarsConverterDep
+
+    implementation gifDep
+
+    compileOnly wsDep
+
+    implementation coroutinesDep
+
+
+    implementation insetterDep
+
+    implementation liveDataKtxDep
+
+    kaptAndroidTest daggerKapt
+    implementation storiesDep
+
+    implementation navigationComposeDep
+    implementation hiltNavComposeDep
+    implementation composeUiDep
+    implementation composeLiveDataDep
+    implementation composeRuntimeDep
+    implementation composeCompilerDep
+    implementation composeThemeAdapterDep
+    implementation composeFoundationDep
+    implementation composeMaterialDep
+    implementation composeAnimationDep
+    implementation composeActivityDep
+    implementation composeViewModelDep
+    implementation composeToolingPreviewDep
+    implementation bouncyCastleDep
+
+    debugImplementation composeToolingDep
+    debugImplementation customviewDep
+    debugImplementation customviewPoolingcontainerDep
+
+    androidTestImplementation androidTestRunnerDep
+    androidTestImplementation androidTestRulesDep
+    androidTestImplementation androidJunitDep
+}
+
+task printVersion {
+    doLast {
+        println "versionName:${computeVersionName()}"
+    }
+}

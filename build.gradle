@@ -1,0 +1,251 @@
+buildscript {
+    ext {
+        // App version
+        versionName = '2.0.9'
+        versionCode = 70
+
+        // SDK and tools
+        compileSdkVersion = 33
+        minSdkVersion = 24
+        targetSdkVersion = 33
+
+        kotlinVersion = '1.7.10'
+
+        ktlintPinterestVersion = '0.46.1'
+
+        supportVersion = '1.6.1'
+        cardViewVersion = '1.0.0'
+        constraintVersion = '2.1.4'
+
+        coroutinesVersion = '1.6.4'
+
+        biometricVersion = '1.1.0'
+
+        progressButtonsVersion = '2.1.0'
+
+        daggerVersion = '2.43'
+        javaxInjectVersion = '1'
+
+        architectureComponentVersion = '2.5.1'
+        roomVersion = '2.4.3'
+
+        retrofitVersion = '2.9.0'
+        okhttpVersion = '5.0.0-alpha.8'
+        gsonVersion = '2.9.1'
+
+        zXingVersion = '3.5.0'
+
+        navControllerVersion = '2.5.1'
+
+        junitVersion = '4.13.2'
+        mockitoVersion = '4.6.1'
+        robolectricVersion = '4.1'
+
+        bouncyCastleVersion = '1.70'
+
+        fearlessLibVersion = '1.0.109'
+
+        gifVersion = '1.2.24'
+
+        zXingVersion = '3.5.0'
+        zXingEmbeddedVersion = '3.5.0@aar'
+
+        biometricDep = "androidx.biometric:biometric:$biometricVersion"
+
+        firebaseAppDistrVersion = '2.1.1'
+        playPublisherVersion = '3.7.0'
+
+        wsVersion = '2.10'
+
+        permissionsVersion = '1.1.2'
+
+        insetterVersion = "0.5.0"
+
+        shimmerVersion = '0.5.0'
+
+        storiesVersion = '3.0.0'
+
+        coilVersion = '2.1.0'
+
+        androidxCoreVersion = '1.8.0'
+
+        composeVersion = '1.2.1'
+        composeCompilerVersion = '1.3.0'
+
+        appcompatVersion = '1.5.0'
+        recyclerviewVersion = '1.2.1'
+        lifecycleVersion = '2.5.1'
+
+        activityKtx = '1.1.0'
+        fragmentKtx = '1.5.2'
+
+        coilDep = "io.coil-kt:coil:$coilVersion"
+        coilSvg = "io.coil-kt:coil-svg:$coilVersion"
+        coilCompose = "io.coil-kt:coil-compose:$coilVersion"
+
+        kotlinDep = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+        insetterDep = "dev.chrisbanes.insetter:insetter-widgets:$insetterVersion"
+
+        androidDep = "androidx.appcompat:appcompat:$appcompatVersion"
+        cardViewDep = "androidx.cardview:cardview:$cardViewVersion"
+        recyclerViewDep = "androidx.recyclerview:recyclerview:$recyclerviewVersion"
+        constraintDep = "androidx.constraintlayout:constraintlayout:$constraintVersion"
+        materialDep = "com.google.android.material:material:$supportVersion"
+        androidxCoreDep = "androidx.core:core-ktx:$androidxCoreVersion"
+        activityKtxDep = "androidx.activity:activity-ktx:$activityKtx"
+        fragmentKtxDep = "androidx.fragment:fragment-ktx:$fragmentKtx"
+
+        daggerDep = "com.google.dagger:hilt-android:$daggerVersion"
+        daggerKapt = "com.google.dagger:hilt-compiler:$daggerVersion"
+        hiltNavComposeDep = "androidx.hilt:hilt-navigation-compose:1.0.0"
+
+        composeRuntimeDep = "androidx.compose.runtime:runtime:$composeVersion"
+        composeUiDep = "androidx.compose.ui:ui:$composeVersion"
+        composeLiveDataDep = "androidx.compose.runtime:runtime-livedata:$composeVersion"
+        composeCompilerDep = "androidx.compose.compiler:compiler:$composeCompilerVersion"
+        composeFoundationDep = "androidx.compose.foundation:foundation:$composeVersion"
+        composeMaterialDep = "androidx.compose.material:material:$composeVersion"
+        composeThemeAdapterDep = "com.google.android.material:compose-theme-adapter:1.1.1"
+        composeAnimationDep = "androidx.compose.animation:animation:$composeVersion"
+        composeAnimationGraphicsDep = "androidx.compose.animation:animation-graphics:$composeVersion"
+        composeToolingDep = "androidx.compose.ui:ui-tooling:$composeVersion"
+        composeToolingPreviewDep = "androidx.compose.ui:ui-tooling-preview:$composeVersion"
+        composeActivityDep = "androidx.activity:activity-compose:1.5.1"
+        composeViewModelDep = "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
+        composeShimmerDep = "com.valentinilk.shimmer:compose-shimmer:1.0.3"
+        composeConstraintLayoutDep = "androidx.constraintlayout:constraintlayout-compose:1.0.1"
+
+        //fix compose preview https://stackoverflow.com/a/71830120
+        customviewDep = "androidx.customview:customview:1.2.0-alpha01"
+        customviewPoolingcontainerDep = "androidx.customview:customview-poolingcontainer:1.0.0"
+
+        lifecycleProcessDep = "androidx.lifecycle:lifecycle-process:$lifecycleVersion"
+
+        lifecycleKapt = "androidx.lifecycle:lifecycle-compiler:$architectureComponentVersion"
+
+        coroutinesDep = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+        coroutinesAndroidDep = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+
+        // viewModelScope
+        viewModelKtxDep = "androidx.lifecycle:lifecycle-viewmodel-ktx:$architectureComponentVersion"
+
+        // liveData builder
+        liveDataKtxDep = "androidx.lifecycle:lifecycle-livedata-ktx:$architectureComponentVersion"
+
+        // lifecycle scopes
+        lifeCycleKtxDep = "androidx.lifecycle:lifecycle-runtime-ktx:$architectureComponentVersion"
+
+        permissionsDep = "com.github.florent37:runtime-permission-kotlin:$permissionsVersion"
+
+        roomDep = "androidx.room:room-runtime:$roomVersion"
+        roomKtxDep = "androidx.room:room-ktx:$roomVersion"
+        roomKapt = "androidx.room:room-compiler:$roomVersion"
+
+        navigationFragmentDep = "androidx.navigation:navigation-fragment-ktx:$navControllerVersion"
+        navigationUiDep = "androidx.navigation:navigation-ui-ktx:$navControllerVersion"
+        navigationComposeDep = "androidx.navigation:navigation-compose:$navControllerVersion"
+
+        bouncyCastleDep = "org.bouncycastle:bcprov-jdk15on:$bouncyCastleVersion"
+
+        retrofitDep = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+        interceptorVersion = "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+        gsonConvertedDep = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+        scalarsConverterDep = "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
+
+        gsonDep = "com.google.code.gson:gson:$gsonVersion"
+
+        zXingCoreDep = "com.google.zxing:core:$zXingVersion"
+        zXingEmbeddedDep = "com.journeyapps:zxing-android-embedded:$zXingEmbeddedVersion"
+
+        fearlessLibDep = "jp.co.soramitsu.fearless-utils:fearless-utils:$fearlessLibVersion"
+
+        gifDep = "pl.droidsonroids.gif:android-gif-drawable:$gifVersion"
+
+        wsDep = "com.neovisionaries:nv-websocket-client:$wsVersion"
+
+        shimmerDep = "com.facebook.shimmer:shimmer:$shimmerVersion"
+
+        storiesDep = "com.github.shts:StoriesProgressView:$storiesVersion"
+
+        jUnitDep = "junit:junit:$junitVersion"
+        mockitoDep = "org.mockito:mockito-inline:$mockitoVersion"
+        robolectricDep = "org.robolectric:robolectric:$robolectricVersion"
+        robolectricMultidexDep = "org.robolectric:shadows-multidex:$robolectricVersion"
+        archCoreTestDep = "androidx.arch.core:core-testing:$architectureComponentVersion"
+
+        progressButtonDep = "com.github.razir.progressbutton:progressbutton:$progressButtonsVersion"
+
+        androidTestRunnerDep = 'androidx.test:runner:1.4.0'
+        androidTestRulesDep = 'androidx.test:rules:1.4.0'
+        androidJunitDep = 'androidx.test.ext:junit:1.1.3'
+
+        roomTestsDep = "androidx.room:room-testing:$roomVersion"
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url 'https://maven.google.com' }
+
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.2.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath 'com.google.gms:google-services:4.3.13'
+        classpath "com.google.firebase:firebase-appdistribution-gradle:$firebaseAppDistrVersion"
+        classpath "com.github.triplet.gradle:play-publisher:$playPublisherVersion"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$daggerVersion"
+    }
+}
+
+configurations {
+    ktlint
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+dependencies {
+
+    ktlint("com.pinterest:ktlint:$ktlintPinterestVersion") {
+//    ktlint("com.pinterest:ktlint:0.46.1") {
+        attributes {
+            attribute(Bundling.BUNDLING_ATTRIBUTE, getObjects().named(Bundling, Bundling.EXTERNAL))
+        }
+    }
+}
+
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    classpath = configurations.ktlint
+    mainClass.set("com.pinterest.ktlint.Main")
+    args "--reporter=plain"
+    args "--android"
+    args "--reporter=checkstyle,output=${project.buildDir}/reports/checkstyle/ktlint.xml"
+    args "$project.rootDir/**/src/main/**/*.kt"
+}
+
+task ktlintFormat(type: JavaExec, group: "formatting") {
+    description = "Fix Kotlin code style deviations."
+    classpath = configurations.ktlint
+    mainClass.set("com.pinterest.ktlint.Main")
+    args "-F", "$project.rootDir/**/src/main/**/*.kt"
+    args "--android"
+}
+
+task runTest(type: GradleBuild) {
+    tasks = ['clean', 'ktlint', 'runModuleTests']
+}
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+        maven { url "https://nexus.iroha.tech/repository/maven-soramitsu/" }
+        mavenCentral()
+    }
+}
+

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GiantScanLite</string>
+    <string name="common_left">%s left</string>
+</resources>

@@ -1,0 +1,106 @@
+{
+  "addressPrefix": 42,
+  "assets": [
+    {
+      "chainIcon": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Westend.svg",
+      "chainId": "e70d5c628a955d50c75614f7d05c380b9110a8a87bec2b228f644eb1887d0e4f",
+      "chainName": "GIANT",
+      "chainToSymbol": {
+        "first": "e70d5c628a955d50c75614f7d05c380b9110a8a87bec2b228f644eb1887d0e4f",
+        "second": "GIANT"
+      },
+      "iconUrl": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Westend.svg",
+      "id": "giant",
+      "isTestNet": false,
+      "name": "GIANT",
+      "nativeChainId": "e70d5c628a955d50c75614f7d05c380b9110a8a87bec2b228f644eb1887d0e4f",
+      "precision": 12,
+      "priceId": "giant",
+      "staking": "RELAYCHAIN",
+      "supportStakingPool": false
+    }
+  ],
+  "assetsById": {
+    "giant": {
+      "chainIcon": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Westend.svg",
+      "chainId": "e70d5c628a955d50c75614f7d05c380b9110a8a87bec2b228f644eb1887d0e4f",
+      "chainName": "GIANT",
+      "chainToSymbol": {
+        "first": "e70d5c628a955d50c75614f7d05c380b9110a8a87bec2b228f644eb1887d0e4f",
+        "second": "GIANT"
+      },
+      "iconUrl": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Westend.svg",
+      "id": "giant",
+      "isTestNet": false,
+      "name": "GIANT",
+      "nativeChainId": "e70d5c628a955d50c75614f7d05c380b9110a8a87bec2b228f644eb1887d0e4f",
+      "precision": 12,
+      "priceId": "giant",
+      "staking": "RELAYCHAIN",
+      "supportStakingPool": false
+    }
+  },
+  "assetsBySymbol": {
+    "GIANT": {
+      "chainIcon": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Westend.svg",
+      "chainId": "e70d5c628a955d50c75614f7d05c380b9110a8a87bec2b228f644eb1887d0e4f",
+      "chainName": "GIANT",
+      "chainToSymbol": {
+        "first": "e70d5c628a955d50c75614f7d05c380b9110a8a87bec2b228f644eb1887d0e4f",
+        "second": "GIANT"
+      },
+      "iconUrl": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Westend.svg",
+      "id": "giant",
+      "isTestNet": false,
+      "name": "GIANT",
+      "nativeChainId": "e70d5c628a955d50c75614f7d05c380b9110a8a87bec2b228f644eb1887d0e4f",
+      "precision": 12,
+      "priceId": "giant",
+      "staking": "RELAYCHAIN",
+      "supportStakingPool": false
+    }
+  },
+  "explorers": [
+    {
+      "type": "SUBSCAN",
+      "types": [
+        "extrinsic",
+        "account"
+      ],
+      "url": "https://westend.subscan.io/{type}/{value}"
+    }
+  ],
+  "externalApi": {
+    "crowdloans": {
+      "type": "GITHUB",
+      "url": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/crowdloan/westend.json"
+    },
+    "history": {
+      "type": "SUBQUERY",
+      "url": "https://api.subquery.network/sq/soramitsu/fearless-wallet-westend"
+    },
+    "staking": {
+      "type": "SUBQUERY",
+      "url": "https://api.subquery.network/sq/soramitsu/fearless-wallet-westend"
+    }
+  },
+  "hasCrowdloans": true,
+  "icon": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Westend.svg",
+  "id": "e70d5c628a955d50c75614f7d05c380b9110a8a87bec2b228f644eb1887d0e4f",
+  "isEthereumBased": false,
+  "isTestNet": false,
+  "name": "GIANT",
+  "nodes": [
+    {
+      "isActive": true,
+      "isDefault": true,
+      "name": "GIANT Dev Node1",
+      "url": "wss://rpc-1-us-east-1-testnet.giantprotocol.org"
+    }
+  ],
+  "supportStakingPool": false,
+  "types": {
+    "overridesCommon": true,
+    "url": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/type_registry/android/westend.json"
+  }
+}
