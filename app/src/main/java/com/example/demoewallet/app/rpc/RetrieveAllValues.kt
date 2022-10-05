@@ -1,4 +1,4 @@
-package jp.co.soramitsu.common.data.network.rpc
+package com.example.demoewallet.app.rpc
 
 import com.example.demoewallet.app.rpc.BulkRetriever
 import jp.co.soramitsu.fearless_utils.wsrpc.SocketService

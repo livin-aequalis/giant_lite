@@ -94,12 +94,15 @@ class TempViewModel
 
     private val _coinApi = MutableStateFlow<Resource<Map<String, Map<String, BigDecimal>>>>(Resource.Empty())
     val coinApi = _coinApi.asStateFlow()
-    
+
+    /**
+     * Get gian
+     */
     fun getFiatSymbol(){
         viewModelScope.launch {
           val data=  coingeckoApiImpl.getAssetPriceCoingecko("","")
-            _coinApi.value = Resource.Success(data)
             Log.d(TAG, "getFiatSymbol: $data")
+            _coinApi.value = Resource.Success(data)
         }
     }
 }

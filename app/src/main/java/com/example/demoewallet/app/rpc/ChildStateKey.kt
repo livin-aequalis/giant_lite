@@ -1,4 +1,4 @@
-package jp.co.soramitsu.common.data.network.rpc
+package com.example.demoewallet.app.rpc
 
 import java.io.ByteArrayOutputStream
 import jp.co.soramitsu.fearless_utils.extensions.toHexString

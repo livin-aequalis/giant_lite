@@ -1,4 +1,4 @@
-package jp.co.soramitsu.runtime.multiNetwork.chain.model
+package com.example.demoewallet.app.di
 
 @JvmInline
 value class NodeId(private val pair: Pair<String, String>) {
