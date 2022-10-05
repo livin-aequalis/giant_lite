@@ -96,7 +96,7 @@ class TempViewModel
     val coinApi = _coinApi.asStateFlow()
 
     /**
-     * Get gian
+     * Get giant coin market price
      */
     fun getFiatSymbol(){
         viewModelScope.launch {
