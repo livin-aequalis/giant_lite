@@ -53,6 +53,7 @@ fun GetMnemonicWordsButton(
                 .weight(weight = 1f, fill = false),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = {
                     viewModel.generateMnemonic()
