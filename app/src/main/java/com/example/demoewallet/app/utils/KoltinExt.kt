@@ -1,6 +1,9 @@
 package com.example.demoewallet.app.utils
 
+import android.content.ClipData
+import android.content.Context
 import android.content.res.AssetManager
+import androidx.core.content.ContextCompat
 import java.io.InputStream
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -96,3 +99,4 @@ fun BigDecimal?.orZero(): BigDecimal = when (this) {
     else -> this
 }
 fun AssetManager.readAssetsFile(fileName : String): String = open(fileName).bufferedReader().use{it.readText()}
+
