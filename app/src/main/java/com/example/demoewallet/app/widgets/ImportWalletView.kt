@@ -1,4 +1,4 @@
-package com.example.demoewallet.app
+package com.example.demoewallet.app.widgets
 
 import android.app.Activity
 import android.content.res.AssetManager
@@ -30,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.example.demoewallet.app.TempViewModel
 import com.example.demoewallet.app.model.CryptoType
 import com.example.demoewallet.app.model.MetaAccount
 import com.example.demoewallet.app.model.ethereumAddressFromPublicKey
@@ -43,72 +44,23 @@ import kotlinx.coroutines.flow.collectLatest
 import org.bouncycastle.util.encoders.Hex
 
 @Composable
-fun GetMnemonicWordsButton(
+fun ImportWalletView(
     viewModel: TempViewModel = hiltViewModel(),
     assetManager: AssetManager? = null,
     lifecycleOwner: LifecycleCoroutineScope?=null
 ) {
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
     val context = LocalContext.current
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
+
         Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .weight(weight = 1f, fill = false),
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(20.dp))
-            Button(
-                onClick = {
-                    viewModel.generateMnemonic()
-                    //               Log.d("TAG", "GetMnemonicWordsButton: ${viewModel.mnemoicWords.collectAsState().value} ")
-                }
-            ) {
-                Text(text = "Create wallet")
-            }
 
 
-            val words = viewModel.mnemonicWords.collectAsState().value.toString().replace("[", "")
-                .replace("]", "")
-                .replace(",", "")
+            Spacer(modifier = Modifier.height(30.dp))
 
-            OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-                    .padding(start = 15.dp, top = 10.dp, end = 15.dp)
-                    .background(Color.White, RoundedCornerShape(5.dp)),
-                shape = RoundedCornerShape(5.dp),
-                value = words,
-                onValueChange = { },
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(
-                text = "Mnemonic Words: $words",
-                color = Color.Black
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-            Button(
-                onClick = {
-                    clipboardManager.setText(AnnotatedString((words)))
-                    Toast.makeText(context, "copied!", Toast.LENGTH_SHORT).show()
-                },
-            ) {
-                Text(text = "Copy Mnemonic")
-            }
-
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            //        viewModel.generateKeys(mnemonicWords = Const.mnemonicWords)
-
-            var mnemonic by remember { mutableStateOf(Const.mnemonicWords) }
+            var mnemonic by remember { mutableStateOf("") }
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -129,13 +81,8 @@ fun GetMnemonicWordsButton(
             ) {
                 Text(text = "Import Wallet")
             }
-            /*assetManager?.let { assetManager ->
-                viewModel.getWalletAddress(
-                    assetManager.readAssetsFile("chain_data.json"),
-                    assetManager.readAssetsFile("meta_account.json")
-                )
-            }
-    */
+
+            Spacer(modifier = Modifier.height(30.dp))
             val address = viewModel.address.collectAsState().value
             Text(
                 text = "$address",
@@ -211,25 +158,11 @@ fun GetMnemonicWordsButton(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            var giantCoinPrice by remember { mutableStateOf("") }
-            Text(
-                text = "Coin API: $$giantCoinPrice",
-                color = Color.Black
-            )
-            lifecycleOwner?.launchWhenStarted {
-                giantCoinPrice = viewModel.coinApi.value.data?.get("giant")?.get("usd").toString()
-                Log.d("TAG", "GetMnemonicWordsButton: $giantCoinPrice")
-            }
-            viewModel.getFiatSymbol()
-
-
-
-        }
     }
 }
 
 @Preview
 @Composable
-fun GetMnemonicWordsButtonPreview() {
-    GetMnemonicWordsButton()
+fun ImportWalletViewPreview() {
+    ImportWalletView()
 }

@@ -20,10 +20,12 @@ import jp.co.soramitsu.fearless_utils.encrypt.keypair.substrate.SubstrateKeypair
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.Mnemonic
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.MnemonicCreator
 import jp.co.soramitsu.fearless_utils.encrypt.seed.substrate.SubstrateSeedFactory
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -38,6 +40,7 @@ class TempViewModel
     val mnemonicWords = _mnemonicWords.asStateFlow()
 
     fun generateMnemonic() {
+        Log.d(TAG, "generateMnemonic: ")
         viewModelScope.launch {
             val generationResult = MnemonicCreator.randomMnemonic(Mnemonic.Length.TWELVE)
             _mnemonicWords.value = generationResult.wordList
@@ -56,6 +59,7 @@ class TempViewModel
         mnemonicWords: String,
     ) {
 
+        Log.d(TAG, "generateKeys: ")
         val substrateDerivationPathOrNull = substrateDerivationPath.nullIfEmpty()
         val decodedDerivationPath = substrateDerivationPathOrNull?.let {
             SubstrateJunctionDecoder.decode(it)
@@ -67,7 +71,6 @@ class TempViewModel
             seed = derivationResult.seed,
             junctions = decodedDerivationPath?.junctions.orEmpty()
         )
-
         _keyPairs.value = Resource.Success(keys)
 
     }
@@ -81,7 +84,7 @@ class TempViewModel
     fun getWalletAddress(chain: String, metaAccount: String,metaAccountObj: MetaAccount) {
         val chainData = Gson().fromJson(chain, Chain::class.java)
 //        val metaAccountData = Gson().fromJson(metaAccount, MetaAccount::class.java)
-        Log.d(TAG, "getWalletAddress:chainData: $chainData")
+//        Log.d(TAG, "getWalletAddress:chainData: $chainData")
 //        Log.d(TAG, "getWalletAddress:metaAccountData: $metaAccountData")
         val addressStr = metaAccountObj.address(chainData)
 
@@ -100,9 +103,11 @@ class TempViewModel
      */
     fun getFiatSymbol(){
         viewModelScope.launch {
-          val data=  coingeckoApiImpl.getAssetPriceCoingecko("","")
-            Log.d(TAG, "getFiatSymbol: $data")
-            _coinApi.value = Resource.Success(data)
+          withContext(Dispatchers.IO){
+              val data=  coingeckoApiImpl.getAssetPriceCoingecko("","")
+              Log.d(TAG, "getFiatSymbol: $data")
+              _coinApi.value = Resource.Success(data)
+          }
         }
     }
 }
