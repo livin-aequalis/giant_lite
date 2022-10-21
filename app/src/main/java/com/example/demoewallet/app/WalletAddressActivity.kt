@@ -20,15 +20,16 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.example.demoewallet.app.theme.colorPrimary
 import com.example.demoewallet.app.widgets.ImportWalletView
+import com.example.demoewallet.app.widgets.WalletAddressView
 import dagger.hilt.android.AndroidEntryPoint
 import jp.co.soramitsu.common.compose.theme.FearlessTheme
 
 @AndroidEntryPoint
-class ImportWalletActivity : ComponentActivity() {
+class WalletAddressActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialTheme{
+            MaterialTheme {
                 Scaffold(
                     topBar = {
                         TopAppBar(
@@ -55,7 +56,15 @@ class ImportWalletActivity : ComponentActivity() {
                             .verticalScroll(rememberScrollState())
                     ) {
                         val viewModel: TempViewModel by viewModels()
-                        ImportWalletView(viewModel,assets, lifecycleOwner =lifecycleScope )
+                        val address = intent.getStringExtra("address")
+                        if (address != null) {
+                            WalletAddressView(
+                                viewModel,
+                                assets,
+                                lifecycleOwner = lifecycleScope,
+                                address
+                            )
+                        }
                     }
                 }
             }

@@ -12,16 +12,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.demoewallet.app.theme.colorPrimary
 
 @Composable
-fun GiantPrice(price:String){
+fun GiantPrice(price:String?){
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(text = "Giant Market Price")
         Text(text = "$$price",
         fontSize = 20.sp,
-            color = MaterialTheme.colors.primary,
+            color = colorPrimary,
         fontWeight = FontWeight.SemiBold
         , modifier = Modifier.padding(start = 8.dp))
     }

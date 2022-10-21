@@ -141,6 +141,11 @@ play {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(":common")
+    implementation project(":core-db")
+
+    implementation project(":core-api")
+    implementation project(":runtime")
 
     implementation 'com.google.android.material:material:1.4.0'
 

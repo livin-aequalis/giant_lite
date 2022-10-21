@@ -35,6 +35,7 @@ import com.example.demoewallet.app.model.MetaAccount
 import com.example.demoewallet.app.model.ethereumAddressFromPublicKey
 import com.example.demoewallet.app.model.substrateAccountId
 import com.example.demoewallet.app.utils.*
+import com.example.demoewallet.app.widgets.ButtonView
 import jp.co.soramitsu.fearless_utils.encrypt.junction.BIP32JunctionDecoder
 import jp.co.soramitsu.fearless_utils.encrypt.keypair.Keypair
 import jp.co.soramitsu.fearless_utils.encrypt.keypair.ethereum.EthereumKeypairFactory
@@ -46,7 +47,7 @@ import org.bouncycastle.util.encoders.Hex
 fun GetMnemonicWordsButton(
     viewModel: TempViewModel = hiltViewModel(),
     assetManager: AssetManager? = null,
-    lifecycleOwner: LifecycleCoroutineScope?=null
+    lifecycleOwner: LifecycleCoroutineScope? = null
 ) {
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
     val context = LocalContext.current
@@ -61,14 +62,13 @@ fun GetMnemonicWordsButton(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(20.dp))
-            Button(
+            ButtonView(
                 onClick = {
                     viewModel.generateMnemonic()
                     //               Log.d("TAG", "GetMnemonicWordsButton: ${viewModel.mnemoicWords.collectAsState().value} ")
-                }
-            ) {
-                Text(text = "Create wallet")
-            }
+                },
+                text = "Create wallet"
+            )
 
 
             val words = viewModel.mnemonicWords.collectAsState().value.toString().replace("[", "")
@@ -123,7 +123,7 @@ fun GetMnemonicWordsButton(
             Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = {
-                    viewModel.generateKeys(mnemonicWords = mnemonic)
+//                    viewModel.generateKeys(mnemonicWords = mnemonic)
                     //               Log.d("TAG", "GetMnemonicWordsButton: ${viewModel.mnemoicWords.collectAsState().value} ")
                 }
             ) {
@@ -223,10 +223,10 @@ fun GetMnemonicWordsButton(
             viewModel.getFiatSymbol()
 
 
-
         }
     }
 }
+
 
 @Preview
 @Composable

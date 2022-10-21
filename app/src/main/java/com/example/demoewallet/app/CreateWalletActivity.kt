@@ -18,9 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
+import com.example.demoewallet.app.theme.colorPrimary
 import com.example.demoewallet.app.widgets.CreateWalletView
 import com.example.demoewallet.app.widgets.ImportWalletView
 import dagger.hilt.android.AndroidEntryPoint
+import jp.co.soramitsu.common.compose.theme.FearlessTheme
 
 @AndroidEntryPoint
 class CreateWalletActivity : ComponentActivity() {
@@ -32,7 +34,7 @@ class CreateWalletActivity : ComponentActivity() {
                     topBar = {
                         TopAppBar(
                             title = {
-                                Text(text = "TopAppBar")
+                                Text(text = "GIANT Wallet")
                             },
                             navigationIcon = {
                                 IconButton(onClick = {
@@ -41,7 +43,7 @@ class CreateWalletActivity : ComponentActivity() {
                                     Icon(Icons.Filled.ArrowBack, "")
                                 }
                             },
-                            backgroundColor =MaterialTheme.colors.primary,
+                            backgroundColor = colorPrimary,
                             contentColor = Color.White,
                             elevation = 12.dp
                         )

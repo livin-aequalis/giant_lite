@@ -1,13 +1,11 @@
 package com.example.demoewallet.app.di
 
 import com.example.demoewallet.app.network.CoingeckoApi
-import com.example.demoewallet.app.network.NetworkApiCreator
-import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import jp.co.soramitsu.common.data.network.NetworkApiCreator
 
 @InstallIn(SingletonComponent::class)
 @Module

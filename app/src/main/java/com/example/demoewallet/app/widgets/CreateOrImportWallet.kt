@@ -5,6 +5,7 @@ import android.content.res.AssetManager
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -25,6 +26,9 @@ import com.example.demoewallet.app.CreateWalletActivity
 import com.example.demoewallet.app.ImportWalletActivity
 import com.example.demoewallet.app.MainActivity
 import com.example.demoewallet.app.TempViewModel
+import com.example.demoewallet.app.theme.colorPrimary
+import com.example.demoewallet.app.theme.white
+import com.example.demoewallet.app.utils.readAssetsFile
 import kotlinx.coroutines.flow.collectLatest
 
 
@@ -66,6 +70,9 @@ fun CreateOrImportWallet(
                     clipboardManager.setText(AnnotatedString((words)))
                     Toast.makeText(context, "copied!", Toast.LENGTH_SHORT).show()
                 },
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = colorPrimary,
+                    contentColor = white)
             ) {
                 Text(text = "Copy Mnemonic")
             }
@@ -81,7 +88,8 @@ fun CreateOrImportWallet(
                 .height(90.dp)
                 .padding(20.dp),
             shape = RoundedCornerShape(50.dp),
-            border = BorderStroke(1.dp, MaterialTheme.colors.primary)
+            border = BorderStroke(1.dp, colorPrimary),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor =  colorPrimary)
         ) {
             Text(text = "Create Wallet")
         }
@@ -94,18 +102,22 @@ fun CreateOrImportWallet(
                 .fillMaxWidth()
                 .height(90.dp)
                 .padding(20.dp),
-            shape = RoundedCornerShape(50.dp)
+            shape = RoundedCornerShape(50.dp),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = colorPrimary,
+                contentColor = white)
         ) {
             Text(text = "Import Wallet")
         }
         viewModel.getFiatSymbol()
+
 
         var giantCoinPrice by remember { mutableStateOf("") }
 
         lifecycleOwner?.launchWhenStarted {
 //            giantCoinPrice = viewModel.coinApi.value.data?.get("giant")?.get("usd").toString()
            viewModel.coinApi.collectLatest {data->
-               giantCoinPrice  =data.data?.get("giant")?.get("usd").toString()
+               giantCoinPrice  =if (data==null) "" else data.data?.get("giant")?.get("usd").toString()
             }
             Log.d("TAG", "GetMnemonicWordsButton: $giantCoinPrice")
         }
